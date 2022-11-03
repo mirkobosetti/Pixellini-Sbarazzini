@@ -8,7 +8,6 @@ window.addEventListener('load', () => {
 	const effect = new Effect(canvas.width, canvas.height)
 	effect.init(ctx)
 
-
 	const animate = () => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		effect.draw(ctx)

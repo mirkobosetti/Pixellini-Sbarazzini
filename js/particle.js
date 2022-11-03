@@ -16,6 +16,9 @@ class Particle {
 		this.distance = 0
 		this.force = 0
 		this.angle = 0
+
+		document.getElementById('inputFriction').addEventListener('change', ({ target }) => this.friction = target.value)
+		document.getElementById('inputEase').addEventListener('change', ({ target }) => this.ease = target.value)
 	}
 
 	draw(ctx) {
