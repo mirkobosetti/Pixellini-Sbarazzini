@@ -17,13 +17,13 @@ class Effect {
 			this.mouse.x = e.x
 			this.mouse.y = e.y
 		})
+
+		document.getElementById('inputMouseArea').addEventListener('change', ({ target }) => {
+			this.mouse.radius = target.value
+		})
 	}
 
 	init(ctx) {
-		// for (let i = 0; i < 100; i++) {
-		// 	this.particles.push(new Particle(this))
-		// }
-
 		ctx.drawImage(this.image, this.centerX, this.centerY)
 		const pixels = ctx.getImageData(0, 0, this.width, this.height).data
 
@@ -43,23 +43,11 @@ class Effect {
 				}
 			}
 		}
+
+
 	}
 
-	update() {
-		this.particles.forEach(particle => {
-			particle.update()
-		})
-	}
-
-	draw(ctx) {
-		this.particles.forEach(particle => {
-			particle.draw(ctx)
-		})
-	}
-
-	warp() {
-		this.particles.forEach(particle => {
-			particle.warp()
-		})
-	}
+	update = () => this.particles.forEach(particle => particle.update())
+	draw = ctx => this.particles.forEach(particle => particle.draw(ctx))
+	warp = () => this.particles.forEach(particle => particle.warp())
 }
