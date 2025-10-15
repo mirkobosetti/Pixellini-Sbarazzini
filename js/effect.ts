@@ -29,7 +29,9 @@ export class Effect {
       gap: 5,
       friction: 0.95,
       ease: 0.02,
-      mouseRadius: 5000
+      mouseRadius: 5000,
+      mouseForce: 1,
+      mouseEnabled: true
     }
 
     window.addEventListener('mousemove', (e) => {
@@ -38,16 +40,32 @@ export class Effect {
     })
   }
 
-  updateConfig(key: keyof EffectConfig, value: number): void {
-    this.config[key] = value
+  updateConfig(key: keyof EffectConfig, value: number | boolean): void {
+    ;(this.config as any)[key] = value
 
     if (key === 'mouseRadius') {
-      this.mouse.radius = value
+      this.mouse.radius = value as number
     } else if (key === 'friction' || key === 'ease') {
       this.particles.forEach((particle) => particle.updateConfig())
     } else if (key === 'gap') {
-      this.particles.forEach((particle) => (particle.size = value))
+      this.particles.forEach((particle) => (particle.size = value as number))
     }
+  }
+
+  reinitialize(ctx: CanvasRenderingContext2D, newGap: number): void {
+    this.gap = newGap
+    this.config.gap = newGap
+    this.particles = []
+    this.init(ctx)
+  }
+
+  resetPositions(): void {
+    this.particles.forEach((particle) => {
+      particle.x = particle.originX
+      particle.y = particle.originY
+      particle.vx = 0
+      particle.vy = 0
+    })
   }
 
   init(ctx: CanvasRenderingContext2D): void {

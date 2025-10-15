@@ -48,10 +48,16 @@ export class Particle {
   }
 
   update(): void {
+    if (!this.effect.config.mouseEnabled) {
+      this.x += (this.vx *= this.friction) + (this.originX - this.x) * this.ease
+      this.y += (this.vy *= this.friction) + (this.originY - this.y) * this.ease
+      return
+    }
+
     this.dx = this.effect.mouse.x! - this.x
     this.dy = this.effect.mouse.y! - this.y
     this.distance = this.dx * this.dx + this.dy * this.dy
-    this.force = -this.effect.mouse.radius / this.distance
+    this.force = (-this.effect.mouse.radius / this.distance) * this.effect.config.mouseForce
 
     if (this.distance < this.effect.mouse.radius) {
       this.angle = Math.atan2(this.dy, this.dx)

@@ -19,7 +19,21 @@
 
       <div class="control-group">
         <button id="warpButton" class="btn-primary">🌀 Warp</button>
-        <button id="resetButton" class="btn-secondary">↺ Reset</button>
+        <button id="resetButton" class="btn-secondary">⟲ Reset</button>
+      </div>
+
+      <div class="separator"></div>
+
+      <h3>Mouse Interaction</h3>
+
+      <div class="control-item">
+        <label for="inputMouseEnabled">
+          <span class="label-text">Mouse Enabled</span>
+          <label class="switch">
+            <input type="checkbox" id="inputMouseEnabled" checked />
+            <span class="slider"></span>
+          </label>
+        </label>
       </div>
 
       <div class="control-item">
@@ -29,6 +43,18 @@
         </label>
         <input type="range" min="500" max="15000" value="5000" step="500" id="inputMouseArea" />
       </div>
+
+      <div class="control-item">
+        <label for="inputMouseForce">
+          <span class="label-text">Mouse Force</span>
+          <span class="value-display" id="valueMouseForce">1.0</span>
+        </label>
+        <input type="range" min="0.1" max="3" value="1" step="0.1" id="inputMouseForce" />
+      </div>
+
+      <div class="separator"></div>
+
+      <h3>Particle Physics</h3>
 
       <div class="control-item">
         <label for="inputFriction">
@@ -46,12 +72,29 @@
         <input type="range" min="0.005" max="0.10" value="0.02" step="0.005" id="inputEase" />
       </div>
 
+      <div class="separator"></div>
+
+      <h3>Visual Settings</h3>
+
       <div class="control-item">
-        <label for="inputGap">
+        <label for="inputSize">
           <span class="label-text">Particle Size</span>
-          <span class="value-display" id="valueGap">5</span>
+          <span class="value-display" id="valueSize">5</span>
         </label>
-        <input type="range" min="1" max="10" value="5" step="1" id="inputGap" />
+        <input type="range" min="1" max="10" value="5" step="1" id="inputSize" />
+      </div>
+
+      <div class="control-item">
+        <label for="inputImageGap">
+          <span class="label-text">Image Gap (Density)</span>
+          <span class="value-display" id="valueImageGap">5</span>
+        </label>
+        <input type="range" min="2" max="15" value="5" step="1" id="inputImageGap" />
+        <small class="help-text">⚠️ Changes require recalculation</small>
+      </div>
+
+      <div class="control-group">
+        <button id="recalculateButton" class="btn-accent">🔄 Recalculate Image</button>
       </div>
     </div>
   </body>

@@ -27,7 +27,21 @@ window.addEventListener('load', () => {
 
   const resetButton = document.getElementById('resetButton') as HTMLButtonElement
   resetButton.addEventListener('click', () => {
-    location.reload()
+    effect.resetPositions()
+  })
+
+  const recalculateButton = document.getElementById('recalculateButton') as HTMLButtonElement
+  recalculateButton.addEventListener('click', () => {
+    const imageGapInput = document.getElementById('inputImageGap') as HTMLInputElement
+    const newGap = parseInt(imageGapInput.value)
+    effect.reinitialize(ctx, newGap)
+  })
+
+  // Mouse enabled toggle
+  const mouseEnabledInput = document.getElementById('inputMouseEnabled') as HTMLInputElement
+  mouseEnabledInput.addEventListener('change', (e) => {
+    const enabled = (e.target as HTMLInputElement).checked
+    effect.updateConfig('mouseEnabled', enabled)
   })
 
   // Range controls with live value display
@@ -48,9 +62,18 @@ window.addEventListener('load', () => {
   }
 
   setupRangeControl('inputMouseArea', 'valueMouseArea', 'mouseRadius', (v) => v.toFixed(0))
+  setupRangeControl('inputMouseForce', 'valueMouseForce', 'mouseForce', (v) => v.toFixed(1))
   setupRangeControl('inputFriction', 'valueFriction', 'friction', (v) => v.toFixed(2))
   setupRangeControl('inputEase', 'valueEase', 'ease', (v) => v.toFixed(3))
-  setupRangeControl('inputGap', 'valueGap', 'gap', (v) => v.toFixed(0))
+  setupRangeControl('inputSize', 'valueSize', 'gap', (v) => v.toFixed(0))
+
+  // Image gap slider (just for display, needs recalculate button)
+  const imageGapInput = document.getElementById('inputImageGap') as HTMLInputElement
+  const imageGapValue = document.getElementById('valueImageGap') as HTMLSpanElement
+  imageGapInput.addEventListener('input', (e) => {
+    const value = parseInt((e.target as HTMLInputElement).value)
+    imageGapValue.textContent = value.toString()
+  })
 
   // Handle window resize
   window.addEventListener('resize', () => {

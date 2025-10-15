@@ -9,4 +9,6 @@ export interface EffectConfig {
   friction: number
   ease: number
   mouseRadius: number
+  mouseForce: number
+  mouseEnabled: boolean
 }
