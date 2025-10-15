@@ -1,4 +1,4 @@
-import type { Mouse } from '../types'
+import type { Mouse, EffectConfig } from '../types'
 import { Particle } from './particle'
 
 export class Effect {
@@ -10,6 +10,7 @@ export class Effect {
   centerY: number
   gap: number
   mouse: Mouse
+  config: EffectConfig
 
   constructor(width: number, height: number) {
     this.width = width
@@ -20,19 +21,33 @@ export class Effect {
     this.centerY = (this.height - this.image.height) / 2
     this.gap = 5
     this.mouse = {
-      radius: 500,
+      radius: 5000,
       x: null,
       y: null
+    }
+    this.config = {
+      gap: 5,
+      friction: 0.95,
+      ease: 0.02,
+      mouseRadius: 5000
     }
 
     window.addEventListener('mousemove', (e) => {
       this.mouse.x = e.x
       this.mouse.y = e.y
     })
+  }
 
-    document.getElementById('inputMouseArea')!.addEventListener('change', ({ target }) => {
-      this.mouse.radius = parseFloat((target as HTMLInputElement).value)
-    })
+  updateConfig(key: keyof EffectConfig, value: number): void {
+    this.config[key] = value
+
+    if (key === 'mouseRadius') {
+      this.mouse.radius = value
+    } else if (key === 'friction' || key === 'ease') {
+      this.particles.forEach((particle) => particle.updateConfig())
+    } else if (key === 'gap') {
+      this.particles.forEach((particle) => (particle.size = value))
+    }
   }
 
   init(ctx: CanvasRenderingContext2D): void {

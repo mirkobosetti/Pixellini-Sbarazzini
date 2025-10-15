@@ -28,20 +28,18 @@ export class Particle {
     this.size = this.effect.gap
     this.vx = 0
     this.vy = 0
-    this.friction = 0.95
-    this.ease = 0.02
+    this.friction = this.effect.config.friction
+    this.ease = this.effect.config.ease
     this.dx = 0
     this.dy = 0
     this.distance = 0
     this.force = 0
     this.angle = 0
+  }
 
-    document.getElementById('inputFriction')!.addEventListener('change', ({ target }) => {
-      this.friction = parseFloat((target as HTMLInputElement).value)
-    })
-    document.getElementById('inputEase')!.addEventListener('change', ({ target }) => {
-      this.ease = parseFloat((target as HTMLInputElement).value)
-    })
+  updateConfig(): void {
+    this.friction = this.effect.config.friction
+    this.ease = this.effect.config.ease
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

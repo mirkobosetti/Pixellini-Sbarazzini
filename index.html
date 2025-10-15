@@ -15,27 +15,44 @@
     <img src="./image.png" id="image1" />
 
     <div class="controls">
-      <button id="warpButton">Warp</button>
+      <h2>Controls</h2>
 
-      <label>
-        Mouse area
-        <input type="range" min="100" max="10000" value="500" step="100" id="inputMouseArea" />
-      </label>
+      <div class="control-group">
+        <button id="warpButton" class="btn-primary">🌀 Warp</button>
+        <button id="resetButton" class="btn-secondary">↺ Reset</button>
+      </div>
 
-      <label>
-        Friction
-        <input type="range" min="0" max="1" value="0.95" step="0.05" id="inputFriction" />
-      </label>
+      <div class="control-item">
+        <label for="inputMouseArea">
+          <span class="label-text">Mouse Radius</span>
+          <span class="value-display" id="valueMouseArea">5000</span>
+        </label>
+        <input type="range" min="500" max="15000" value="5000" step="500" id="inputMouseArea" />
+      </div>
 
-      <label>
-        Ease
-        <input type="range" min="0" max="0.10" value="0.02" step="0.01" id="inputEase" />
-      </label>
+      <div class="control-item">
+        <label for="inputFriction">
+          <span class="label-text">Friction</span>
+          <span class="value-display" id="valueFriction">0.95</span>
+        </label>
+        <input type="range" min="0.8" max="0.99" value="0.95" step="0.01" id="inputFriction" />
+      </div>
+
+      <div class="control-item">
+        <label for="inputEase">
+          <span class="label-text">Ease</span>
+          <span class="value-display" id="valueEase">0.02</span>
+        </label>
+        <input type="range" min="0.005" max="0.10" value="0.02" step="0.005" id="inputEase" />
+      </div>
+
+      <div class="control-item">
+        <label for="inputGap">
+          <span class="label-text">Particle Size</span>
+          <span class="value-display" id="valueGap">5</span>
+        </label>
+        <input type="range" min="1" max="10" value="5" step="1" id="inputGap" />
+      </div>
     </div>
-
-    <!-- TODO -->
-    <!-- # form controls css -->
-    <!-- # sliders to change all parameters -->
-    <!-- # change image -->
   </body>
 </html>
