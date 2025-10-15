@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ritwickdey.liveserver",
+        "ms-vscode.live-server",
+        "chrmarti.regex",
+        "streetsidesoftware.code-spell-checker"
+    ]
+}
