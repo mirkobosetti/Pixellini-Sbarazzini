@@ -1,9 +1,21 @@
-class Effect {
-  constructor(width, height) {
+import type { Mouse } from '../types'
+import { Particle } from './particle'
+
+export class Effect {
+  width: number
+  height: number
+  particles: Particle[]
+  image: HTMLImageElement
+  centerX: number
+  centerY: number
+  gap: number
+  mouse: Mouse
+
+  constructor(width: number, height: number) {
     this.width = width
     this.height = height
     this.particles = []
-    this.image = document.getElementById('image1')
+    this.image = document.getElementById('image1') as HTMLImageElement
     this.centerX = (this.width - this.image.width) / 2
     this.centerY = (this.height - this.image.height) / 2
     this.gap = 5
@@ -18,12 +30,12 @@ class Effect {
       this.mouse.y = e.y
     })
 
-    document.getElementById('inputMouseArea').addEventListener('change', ({ target }) => {
-      this.mouse.radius = target.value
+    document.getElementById('inputMouseArea')!.addEventListener('change', ({ target }) => {
+      this.mouse.radius = parseFloat((target as HTMLInputElement).value)
     })
   }
 
-  init(ctx) {
+  init(ctx: CanvasRenderingContext2D): void {
     ctx.drawImage(this.image, this.centerX, this.centerY)
     const pixels = ctx.getImageData(0, 0, this.width, this.height).data
 
@@ -45,7 +57,8 @@ class Effect {
     }
   }
 
-  update = () => this.particles.forEach((particle) => particle.update())
-  draw = (ctx) => this.particles.forEach((particle) => particle.draw(ctx))
-  warp = () => this.particles.forEach((particle) => particle.warp())
+  update = (): void => this.particles.forEach((particle) => particle.update())
+  draw = (ctx: CanvasRenderingContext2D): void =>
+    this.particles.forEach((particle) => particle.draw(ctx))
+  warp = (): void => this.particles.forEach((particle) => particle.warp())
 }
