@@ -1,4 +1,4 @@
-import { Effect } from './js/effect'
+import { Effect } from './ts/effect'
 
 window.addEventListener('load', () => {
   const canvas = document.getElementById('canvas1') as HTMLCanvasElement
@@ -53,13 +53,21 @@ window.addEventListener('load', () => {
   animate()
 
   // Prevent scrolling on touch for canvas
-  canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault()
-  }, { passive: false })
+  canvas.addEventListener(
+    'touchstart',
+    (e) => {
+      e.preventDefault()
+    },
+    { passive: false }
+  )
 
-  canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault()
-  }, { passive: false })
+  canvas.addEventListener(
+    'touchmove',
+    (e) => {
+      e.preventDefault()
+    },
+    { passive: false }
+  )
 
   // Button controls
   const warpButton = document.getElementById('warpButton') as HTMLButtonElement

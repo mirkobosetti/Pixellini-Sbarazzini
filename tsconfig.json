@@ -28,7 +28,7 @@
   },
   "include": [
     "index.ts",
-    "js",
+    "ts",
     "types"
   ]
 }
