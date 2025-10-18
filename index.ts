@@ -3,12 +3,45 @@ import { Effect } from './js/effect'
 window.addEventListener('load', () => {
   const canvas = document.getElementById('canvas1') as HTMLCanvasElement
   const ctx = canvas.getContext('2d')!
+  const controlsPanel = document.getElementById('controls') as HTMLDivElement
+  const toggleButton = document.getElementById('toggleControls') as HTMLButtonElement
 
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
   const effect = new Effect(canvas.width, canvas.height)
   effect.init(ctx)
+
+  // Initialize controls visibility based on screen size
+  const updateControlsVisibility = () => {
+    const isMobile = window.innerWidth <= 1024
+    if (isMobile) {
+      controlsPanel.classList.add('hidden')
+      effect.setControlsVisible(false)
+      toggleButton.classList.remove('active')
+    } else {
+      controlsPanel.classList.remove('hidden')
+      effect.setControlsVisible(true)
+    }
+  }
+
+  updateControlsVisibility()
+
+  // Toggle controls on mobile
+  toggleButton.addEventListener('click', () => {
+    const isHidden = controlsPanel.classList.contains('hidden')
+    if (isHidden) {
+      controlsPanel.classList.remove('hidden')
+      toggleButton.classList.add('active')
+      effect.setControlsVisible(true)
+    } else {
+      controlsPanel.classList.add('hidden')
+      toggleButton.classList.remove('active')
+      effect.setControlsVisible(false)
+    }
+    // Reinitialize particles with new center position
+    effect.reinitialize(ctx, effect.gap)
+  })
 
   const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -18,6 +51,15 @@ window.addEventListener('load', () => {
   }
 
   animate()
+
+  // Prevent scrolling on touch for canvas
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault()
+  }, { passive: false })
+
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault()
+  }, { passive: false })
 
   // Button controls
   const warpButton = document.getElementById('warpButton') as HTMLButtonElement
@@ -76,10 +118,18 @@ window.addEventListener('load', () => {
   })
 
   // Handle window resize
+  let resizeTimeout: number
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     effect.width = canvas.width
     effect.height = canvas.height
+
+    // Update controls visibility on resize
+    clearTimeout(resizeTimeout)
+    resizeTimeout = window.setTimeout(() => {
+      updateControlsVisibility()
+      effect.reinitialize(ctx, effect.gap)
+    }, 250)
   })
 })
